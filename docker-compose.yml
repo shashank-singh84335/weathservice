@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+
+  weatherservice:
+    build : .
+    ports:
+      - "8000:8000"
+    environment:
+      - API_KEY=930c01c0e89c681736fded86e361da0a
+    depends_on:
+      - redis
+    deploy:
+      replicas: 1
+    restart: always  
+    volumes:
+      - weatherservice-data:/app/data
+
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data 
+
+volumes:
+  weatherservice-data:
+  redis-data:
